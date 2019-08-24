@@ -2,4 +2,8 @@
     <string name="app_name">Live Translation</string>
     <string name="hello_world_label">Hello world! ^_^</string>
     <string name="error_alert_title">Error Occurred</string>
+    <string name="sample_text_1">sample text 1</string>
+    <string name="sample_text_2">sample text 2</string>
+    <string name="sample_text_3">sample text 3</string>
+    <string name="open_sample_button_label">Open Sample Activity</string>
 </resources>

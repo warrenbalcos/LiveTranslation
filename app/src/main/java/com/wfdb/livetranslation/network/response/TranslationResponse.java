@@ -12,6 +12,13 @@ public class TranslationResponse {
     public String region;
     public HashMap<String, String> entries;
 
+    public TranslationResponse(String name, String language, String region, HashMap<String, String> entries) {
+        this.name = name;
+        this.language = language;
+        this.region = region;
+        this.entries = entries;
+    }
+
     @Override
     public String toString() {
         return "TranslationResponse{" +

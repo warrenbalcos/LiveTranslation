@@ -6,8 +6,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
-
 import com.wfdb.livetranslation.R;
 import com.wfdb.livetranslation.network.provider.TranslationNetworkProvider;
 import com.wfdb.livetranslation.network.response.LocaleInfoResponse;
@@ -78,17 +76,25 @@ public class TranslationService {
     }
 
     private void handleTextIntercept(TextView textView) {
-        TranslationMap map = null;
-        if (currentLanguage != null && currentRegion != null) {
-            map = translationMaps.get(LanguageUtils.getLocaleCode(currentLanguage, currentRegion));
-        }
-        if (map != null) {
-            String currentText = textView.getText().toString();
-            String resourceName = stringResourceReverseLookup.get(currentText);
-            String translationMatch = map.getValue(resourceName);
-            if (!TextUtils.isEmpty(translationMatch)) {
-                textView.setText(translationMatch);
+        synchronized (lock) {
+            TranslationMap map = null;
+            if (currentLanguage != null && currentRegion != null) {
+                map = translationMaps.get(LanguageUtils.getLocaleCode(currentLanguage, currentRegion));
             }
+            if (map != null) {
+                String currentText = textView.getText().toString();
+                String resourceName = stringResourceReverseLookup.get(currentText);
+                String translationMatch = map.getValue(resourceName);
+                if (!TextUtils.isEmpty(translationMatch)) {
+                    textView.setText(translationMatch);
+                }
+            }
+        }
+    }
+
+    public String getNameForStringResource(String value) {
+        synchronized (lock) {
+            return stringResourceReverseLookup.get(value);
         }
     }
 
@@ -138,6 +144,12 @@ public class TranslationService {
                 return;
             }
             localeListProvider.fetchTranslations(callback);
+        }
+    }
+
+    public TranslationMap getTranslationMap(String language, String region) {
+        synchronized (lock) {
+            return translationMaps.get(LanguageUtils.getLocaleCode(language, region));
         }
     }
 

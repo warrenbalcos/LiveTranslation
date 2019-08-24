@@ -9,6 +9,12 @@ public class LocaleInfoResponse {
     public String language;
     public String region;
 
+    public LocaleInfoResponse(String name, String language, String region) {
+        this.name = name;
+        this.language = language;
+        this.region = region;
+    }
+
     @Override
     public String toString() {
         return "LocaleInfoResponse{" +

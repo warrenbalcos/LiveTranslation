@@ -12,6 +12,12 @@ public class LocaleItemData {
     private String language;
     private String region;
 
+    public LocaleItemData(String name, String language, String region) {
+        this.name = name;
+        this.language = language;
+        this.region = region;
+    }
+
     public LocaleItemData(LocaleInfoResponse data) {
         this.name = data.name;
         this.language = data.language;

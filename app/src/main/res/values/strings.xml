@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Live Translation</string>
+    <string name="hello_world_label">Hello world! ^_^</string>
+    <string name="error_alert_title">Error Occurred</string>
+</resources>
